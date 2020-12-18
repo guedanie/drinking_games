@@ -46,13 +46,13 @@ def build_deck(rules):
             new_set.append(str(i) + suit)
         test = pd.DataFrame({"value": new_set, "key": rule_value})
         deck = pd.concat([deck, test])
-    deck = deck.reset_index(drop=True)
+    deck = deck.reset_index(drop=True).sample(frac=1)
     return deck
 
 def draw_card(deck):
     random_number = choice(deck.index)
     card = deck.loc[random_number]
-    updated_deck = deck.drop(index=random_number)
+    updated_deck = deck.drop(index=random_number).sample(frac=1)
     return card, updated_deck
 
 def present_card(card):
@@ -62,22 +62,30 @@ deck = build_deck(rules)
 playing = True
 while playing:
     draw = input("Do you want to draw a card? (Y / N) ")
-    draw.lower()
-    if draw == "y": 
+    if draw == "y" or draw == "Y": 
+        print("")
         print("--------------------")
         card, deck = draw_card(deck)
-        print(f"There are {deck.shape[0]} left in the deck")
+        print(f"There are {deck.shape[0]} cards left in the deck")
         present_card(card)
         print("Rule:")
         print("")
         print(rules[card.values[1]])
         print("--------------------")
+        print("")
         if deck.shape[0] == 1:
+            print("")
             print("~~~~ One more card left! ~~~~")
+            print("")
         elif deck.shape[0] == 0:
-            print("That's all the cards! Everybody DRINK!!!")
+            print("************************************")
+            print("That's all the cards! EVERYBODY DRINK!!!")
+            print("************************************")
             playing=False
     else:
         playing= False
-
-print("Thank you for playing")
+        print("")
+        print("Thank you for playing")
+        print("")
+        print("Please don't drink and drive!")
+        print("")
