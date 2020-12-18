@@ -51,7 +51,7 @@ def build_deck(rules):
 
 def draw_card(deck):
     random_number = choice(deck.index)
-    card = deck.iloc[random_number]
+    card = deck.loc[random_number]
     updated_deck = deck.drop(index=random_number)
     return card, updated_deck
 
@@ -62,14 +62,21 @@ deck = build_deck(rules)
 playing = True
 while playing:
     draw = input("Do you want to draw a card? (Y / N) ")
-    if draw == "Y": 
+    draw.lower()
+    if draw == "y": 
         print("--------------------")
         card, deck = draw_card(deck)
+        print(f"There are {deck.shape[0]} left in the deck")
         present_card(card)
         print("Rule:")
         print("")
         print(rules[card.values[1]])
         print("--------------------")
+        if deck.shape[0] == 1:
+            print("~~~~ One more card left! ~~~~")
+        elif deck.shape[0] == 0:
+            print("That's all the cards! Everybody DRINK!!!")
+            playing=False
     else:
         playing= False
 
