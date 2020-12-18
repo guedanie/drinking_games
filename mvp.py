@@ -70,7 +70,9 @@ beer_crack = choice(values)
 print("")
 print("~~~~ Welcome to Kings ~~~~~")
 print("")
-print("Be prepare to questions your friendships for coming up with the stupidest rules and not being able to form a single rhyme")
+print("The game rules are simple - every player takes turn drawing one card. Cards have specific rules - the rules will be written under each card that basically tell you who has to drink.")
+print("")
+print("Be prepare to question your friendships when your friends come up with the stupidest rules")
 print("")
 print("At any point in the game, after drawing a card, a player might crack the seal. At that point, that player that drew the card has to finish their drink")
 print("")
@@ -104,9 +106,11 @@ while playing:
             print("~~~~ One more card left! ~~~~")
             print("")
         elif deck.shape[0] == 0:
+            print("")
             print("************************************")
             print("That's all the cards! EVERYBODY DRINK!!!")
             print("************************************")
+            print("")
             playing=False
     else:
         playing= False
