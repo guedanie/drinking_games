@@ -1,7 +1,8 @@
 import pandas as pd
 import numpy as np
-from random import randint
+from numpy.random import randint
 from random import choice
+from time import sleep
 
 # objective: To be able to play kings the drinking game
 # in order to accomplish this - I will first build a terminal version as an MVP
@@ -50,15 +51,29 @@ def build_deck(rules):
     return deck
 
 def draw_card(deck):
+    # In order to increase randomness - I have added two "shuffles". We randomly select a number from the index using the random library
     random_number = choice(deck.index)
     card = deck.loc[random_number]
-    updated_deck = deck.drop(index=random_number).sample(frac=1)
+    updated_deck = deck.drop(index=random_number).sample(frac=1) # and the deck is shuffle every time it is updated but shuffing the index. This reduces the chances of similar cards coming back to back
     return card, updated_deck
 
 def present_card(card):
     print(f"The card is: {card.values[0]}")
 
+# ------------------------- #
+#      Main Game Loop       #
+# ------------------------- #
+
 deck = build_deck(rules)
+values = randint(3, 31, 100)
+beer_crack = choice(values)
+print("")
+print("~~~~ Welcome to Kings ~~~~~")
+print("")
+print("Be prepare to questions your friendships for coming up with the stupidest rules and not being able to form a single rhyme")
+print("")
+print("At any point in the game, after drawing a card, a player might crack the seal. At that point, that player that drew the card has to finish their drink")
+print("")
 playing = True
 while playing:
     draw = input("Do you want to draw a card? (Y / N) ")
@@ -66,6 +81,17 @@ while playing:
         print("")
         print("--------------------")
         card, deck = draw_card(deck)
+        if deck.shape[0] ==  beer_crack:
+            print("")
+            print("STOP")
+            print("")
+            print("*******************")
+            print("")
+            print("Someone has cracked the beer can!! Who's ever turn it was has to finish their drink now!")
+            print("")
+            print("*******************")
+            print("")
+            sleep(10)
         print(f"There are {deck.shape[0]} cards left in the deck")
         present_card(card)
         print("Rule:")
