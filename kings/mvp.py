@@ -3,6 +3,7 @@ import numpy as np
 from numpy.random import randint
 from random import choice
 from time import sleep
+import os
 
 # objective: To be able to play kings the drinking game
 # in order to accomplish this - I will first build a terminal version as an MVP
@@ -64,6 +65,7 @@ def present_card(card):
 #      Main Game Loop       #
 # ------------------------- #
 
+os.system('clear')
 deck = build_deck(rules)
 values = randint(3, 31, 100)
 beer_crack = choice(values)
@@ -80,6 +82,7 @@ playing = True
 while playing:
     draw = input("Do you want to draw a card? (Y / N) ")
     if draw == "y" or draw == "Y": 
+        os.system('clear')
         print("")
         print("--------------------")
         card, deck = draw_card(deck)
