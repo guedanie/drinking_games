@@ -64,7 +64,7 @@ def update_board(heart, diamond, spade, club):
     os.system('clear')
     deck = build_deck()
     deck = remove_aces(deck)
-    cards, deck = select_8_cards(deck)
+    # cards, deck = select_8_cards(deck)
 
     card, deck = draw_card(deck)
     print(f"The card is: {card.values[0]}")
@@ -100,20 +100,36 @@ def update_board(heart, diamond, spade, club):
     
 
    
-
+os.system('clear')
+print("                                     Welcome to Horse Race!                                  ")
+print("")
+print("Are we ready to play? If you haven't already - annouce how many drinks you are willing to bet on your favorite hourse")
+print("")
+print("Just remember that if your horse doesn't win - you have to drink what ever you bet, plus what ever the winner bet!")
+print("")
 playing= True
 board = create_board(heart, diamond, spade, club)
 print(board)
 
 while playing:
-    answer = input("Ready to draw a card? (Y/N): ")
-    if answer == "Y":
-        board = update_board(heart, diamond, spade, club)
-        print(board)
-        
-    else:
-        print("Thank you for playing")
+    
+    winner = board[board[8] != "0"]
+    if winner.shape[0] == 0:
+        answer = input("Ready to draw a card? (Y/N): ")
+        if answer == "Y" or answer == "y":
+            board = update_board(heart, diamond, spade, club)
+            print(board)
+        else:
+            print("Thank you for playing")
+            playing=False
+    if winner.shape[0] == 1:
+        print("")
+        print(f"~~The winner is the Ace of {winner.index[0]}~~")
+        print("")
         playing=False
+
+        
+    
     
 
 
