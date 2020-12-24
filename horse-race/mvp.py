@@ -4,6 +4,9 @@ from numpy.random import randint
 from random import choices
 from random import choice
 from time import sleep
+import time, sys
+from IPython.display import clear_output
+import os
 
 
 heart = ["♥️", '0', '0', '0', '0', '0', '0', '0', '0']
@@ -58,54 +61,60 @@ def create_board(heart, diamond, spade, club):
     return board
 
 def update_board(heart, diamond, spade, club):
-    
+    os.system('clear')
     deck = build_deck()
     deck = remove_aces(deck)
     cards, deck = select_8_cards(deck)
 
     card, deck = draw_card(deck)
     print(f"The card is: {card.values[0]}")
+    
     if card.suit == '♥️':
         h_index = heart.index('♥️')
         heart.insert(h_index + 1, heart.pop(h_index))
         h_index += 1
         board = create_board(heart, diamond, spade, club)
-        print(board)
+        
+        return board
     if card.suit == "♦️":
         d_index = diamond.index("♦️")
         diamond.insert(d_index + 1, diamond.pop(d_index))
         d_index += 1
         board = create_board(heart, diamond, spade, club)
+        return board
         
-        print(board)
     if card.suit == "♠️":
         s_index = spade.index("♠️")
         spade.insert(s_index + 1, spade.pop(s_index))
         s_index += 1
         board = create_board(heart, diamond, spade, club)
+        return board
         
-        print(board)
     if card.suit == "♣️":
         c_index = club.index("♣️")
         club.insert(c_index + 1, club.pop(c_index))
         c_index += 1
         board = create_board(heart, diamond, spade, club)
-        
-        print(board)
+        return board
+    
+    
 
-
+   
 
 playing= True
+board = create_board(heart, diamond, spade, club)
+print(board)
+
 while playing:
-    board = create_board(heart, diamond, spade, club)
-    print(board)
     answer = input("Ready to draw a card? (Y/N): ")
     if answer == "Y":
-        update_board(heart, diamond, spade, club)
+        board = update_board(heart, diamond, spade, club)
+        print(board)
+        
     else:
         print("Thank you for playing")
         playing=False
-        
+    
 
 
         
